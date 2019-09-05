@@ -1,8 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 const mongoose = require("mongoose");
+app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/users", {
   useNewUrlParser: true
@@ -39,6 +42,8 @@ app.post("/create", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  users.push(newUser);
+  console.log(req.body);
 });
 
 // **Read** 2 - Création de la route qui renvoie les éléments
